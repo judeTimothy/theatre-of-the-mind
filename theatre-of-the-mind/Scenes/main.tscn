@@ -80,4 +80,8 @@ text = "Option3"
 layout_mode = 2
 text = "Option4"
 
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="pressed" from="VBoxContainer/Option1" to="." method="_on_option_1_pressed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

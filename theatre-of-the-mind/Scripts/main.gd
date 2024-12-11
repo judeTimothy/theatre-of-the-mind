@@ -3,7 +3,13 @@ extends Control
 
 @onready var container = $ScrollContainer/VBoxContainer
 var status = 0
-var message =["Who are you?"]
+var special = 0
+var message1 =["Who are you?","Placeholder"]
+var message2 = ["Where am I?","Placeholder"]
+var message3 = ["Attack.","Placeholder"]
+var message4 = ["Stay Silent.","Placeholder"]
+var npc_chat = ["Oh, you're finally awake. You were knocked out for quite a while.", "You don't know me? That's bad. You were hit pretty bad after all. It's me, James."]
+
 func _ready() -> void:
 	#for i in range(4):
 	#	add_label("","Unnamed Human", message[status])
@@ -30,9 +36,21 @@ func add_label(context,speaker,message,alignment):
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	$VBoxContainer/Option1.text = message1[status]
+	$VBoxContainer/Option2.text = message2[status]
+	$VBoxContainer/Option3.text = message3[status]
+	$VBoxContainer/Option4.text = message4[status]
 
 
 func _on_option_1_pressed() -> void:
-	add_label("story","You",message[status],"self")
-	status+=1
+	add_label("story","You",message1[status],"self")
+	if special == 2:
+		status+=1
+		special = 0
+	else:
+		special += 1
+	$Timer.start()
+
+
+func _on_timer_timeout() -> void:
+	add_label("story","James",npc_chat[status],"ally")
